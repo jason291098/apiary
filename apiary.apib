@@ -188,3 +188,50 @@ Polls is a simple API allowing consumers to view polls and vote in them.
         {
             "data": "OK"
         }
+
+## ACCOUNTS - Generate QrCode for Mobile Login [/external/v1/accounts/generate]
+
+### Generate QrCode [GET]
+
++ Response 200 (application/json)
+
+        {
+            "data": {
+                "code": "u_SQsCQrNPIwb4qSv0a6lI4Po4UmSb6s2U2N",
+                "createdAt": "2019-09-30 13:27:06",
+                "expiredAt": "2019-09-30 13:28:06"
+            }
+        }
+
+## ACCOUNTS - Get Token by Qr [/external/v1/accounts/get-by-qr/:code]
+
+### Get _at Token [GET]
+
++ Response 200 (application/json)
+
+    {
+        "data": {
+            "token": "eyJhbGciOi..."
+        }
+    }
+
+## ACCOUNTS - Get Active Device By Access Token [/external/v1/accounts/get-device]
+
+### Get list of device(s) [GET]
+
++ Response 200 (application/json)
+
+    {
+        "data": {
+            "devices": [
+                {
+                    "name": "Mi9",
+                    "os": "Android 9.0"
+                },
+                {
+                    "name": "Samsung S9+",
+                    "os": "Android 9.1"
+                }
+            ]
+        }
+    }
