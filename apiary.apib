@@ -189,7 +189,7 @@ Polls is a simple API allowing consumers to view polls and vote in them.
             "data": "OK"
         }
 
-## ACCOUNTS - Generate QrCode for Mobile Login [/accounts/_/v2/qr-code/generate]
+## ACCOUNTS - Generate QrCode for Mobile Login [/accounts/_/v2/mps/auth-qr/generate]
 
 ### Generate QrCode [GET]
 
@@ -199,13 +199,24 @@ Polls is a simple API allowing consumers to view polls and vote in them.
             "data": {
                 "code": "u_SQsCQrNPIwb4qSv0a6lI4Po4UmSb6s2U2N",
                 "createdAt": "2019-09-30 13:27:06",
-                "expiredAt": "2019-09-30 13:28:06"
+                "expiredAt": "2019-09-30 13:32:06"
             }
         }
 
-## ACCOUNTS - Get Token by Qr [/accounts/_/v2/qr-code/get-by-qr/:code]
+## ACCOUNTS - Get Token by Qr [/accounts/_/v2/apps/auth-qr/scan]
 
-### Get _at Token [GET]
+### Get _at Token [POST]
+
++ Request
+    + data
+        {
+            "code": "u_SQsCQrNPIwb4qSv0a6lI4Po4UmSb6s2U2N",
+            "device": {
+                "id": "qwertyuiop...",
+                "name": "Pocophone...",
+                "os": "Android 8.x ..."
+            }
+        }
 
 + Response 200 (application/json)
 
@@ -215,7 +226,7 @@ Polls is a simple API allowing consumers to view polls and vote in them.
         }
     }
 
-## ACCOUNTS - Get Active Device By Access Token [/accounts/_/v2/qr-code/get-device]
+## ACCOUNTS - Get Active Device By Access Token [/accounts/_/auth-qr/devices]
 
 ### Get list of device(s) [GET]
 
@@ -225,12 +236,15 @@ Polls is a simple API allowing consumers to view polls and vote in them.
         "data": {
             "devices": [
                 {
+                    "id": "qwertyuiop...",
                     "name": "Mi9",
-                    "os": "Android 9.0"
+                    "os": "Android 9.0",
+                    "loggedAt": "2019-10-02 23:06:13"
                 },
                 {
                     "name": "Samsung S9+",
-                    "os": "Android 9.1"
+                    "os": "Android 9.1",
+                    "loggedAt": "2019-09-30 07:07:07"
                 }
             ]
         }
