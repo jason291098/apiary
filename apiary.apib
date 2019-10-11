@@ -1,10 +1,18 @@
 FORMAT: 1A
-HOST: http://lukitomo.com/
+HOST: http://mola.tv/
 
-# Kareem 
+# Mola.TV 
 
 Polls is a simple API allowing consumers to view polls and vote in them.
 
+## VIDEOS - PING [/api/v2/videos/ping]
+
+### PING [GET]
+
++ Response 200 (application/json)
+
+        "PONG"
+        
 ## ACCOUNTS - BCA Integration [/api/v2/accounts/register-bca-user]
 
 ### Register BCA User [POST]
@@ -171,7 +179,7 @@ Polls is a simple API allowing consumers to view polls and vote in them.
 
 ## ACCOUNTS - Get Profile [/api/v2/accounts/client-app/:id]
 
-### Get Profile by tokenize [GET]
+### Get Profile by token [GET]
 + Request
     parameter id: 74
 
@@ -181,18 +189,80 @@ Polls is a simple API allowing consumers to view polls and vote in them.
             "data": "OK"
         }
 
+## ACCOUNTS - Generate QrCode for Mobile Login [/accounts/_/v2/mps/auth-qr/generate]
+
+### Generate QrCode [GET]
+
++ Response 200 (application/json)
+
+        {
+            "data": {
+                "code": "u_SQsCQrNPIwb4qSv0a6lI4Po4UmSb6s2U2N",
+                "createdAt": "2019-09-30 13:27:06",
+                "expiredAt": "2019-09-30 13:32:06"
+            }
+        }
+
+## ACCOUNTS - Get Token by QR [/accounts/_/v2/apps/auth-qr/scan]
+
+### Get _at Token [POST]
+
++ Request
+    + data
+        {
+            "code": "u_SQsCQrNPIwb4qSv0a6lI4Po4UmSb6s2U2N",
+            "device": {
+                "id": "qwertyuiop...",
+                "name": "Pocophone...",
+                "os": "Android 8.x ..."
+            }
+        }
+
++ Response 200 (application/json)
+
+    {
+        "data": {
+            "token_type":    "Bearer",
+            "access_token":  "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjI2MTQxZDQ1ZTYyMjQzNTczMWU1YWJkYTZlOWZiNGRmIn0.eyJhenAiOiJ3SUhHekpoc2V0Iiwic2NvcGUiOiJodHRwczovL2ludGVybmFsLnN1cGVyc29jY2VyLnR2L3VzZXJzL3VzZXJzLnByb2ZpbGUucmVhZCBodHRwczovL2ludGVybmFsLnN1cGVyc29jY2VyLnR2L3N1YnNjcmlwdGlvbnMvdXNlcnMucmVhZC5nbG9iYWwgaHR0cHM6Ly9hcGkuc3VwZXJzb2NjZXIudHYvc3Vic2NyaXB0aW9ucy9zdWJzY3JpcHRpb25zLnJlYWQgaHR0cHM6Ly9hcGkuc3VwZXJzb2NjZXIudHYvb3JkZXJzL29yZGVycy5jcmVhdGUgaHR0cHM6Ly9hcGkuc3VwZXJzb2NjZXIudHYvdmlkZW9zL3ZpZGVvcy5yZWFkIGh0dHBzOi8vYXBpLnN1cGVyc29jY2VyLnR2L29yZGVycy9vcmRlcnMucmVhZCBwYXltZW50bWV0aG9kczpyZWFkLmludGVybmFsIHBheW1lbnRzOnBheW1lbnQuZG9wYXkgdXNlcmRhdGE6cHJlZmVyZW5jZS5yZWFkIHVzZXJkYXRhOnByZWZlcmVuY2UuaW5zZXJ0IiwicnFsIjoiaW5maW5pdGUiLCJpYXQiOjE1NzA2MDIyMjYsImV4cCI6MTU3MDg2MTQyNiwiYXVkIjoiYXBpLm1vbGEudHYiLCJpc3MiOiJhY2NvdW50cy5tb2xhLnR2Iiwic3ViIjoiQ2NIMWVkOEhmSzU4SHNvQmFocGNiVm9yMkJwem5jIiwianRpIjoiNlBNcUJYdTZ0MDN2NlhkdXg3T1RmZHVwOW9YSWVFRDlzQzE0M1M3eSJ9.MoDv4DM2iSqlASaVy1cizEwS0nltxBpg756ixoi8OnRyTFntAbgleiCosf-H3iuArA05yD069viic_BHt6V58kj04XN-VC2sIxvunF_vjQl4Wl37RcSqzUrQ12ZsqO1UXrabKxoAGGcmba_eZ-mOkO9qvDFWVLR64too4xyo4-By-UEywk8R6-D3ZIw0ipTynVmzNB3o_Ja4wBPBC-X4kzxnBq6HZTidizQgm-UFH58Y6fi1jjUn3D50cCdM68wOVcELWmvk-5jMVM7B88IWjZoT3nHNxuthEPVMcdnHvPKr1c0HzlyPjMaF5xyuh6OXTJCrUblxFOOPuDloBUyvZg",
+            "expires_in":    3000,
+            "refresh_token": "zxcvbnmasdfghjklqwertyuiop1234567890123x2",
+        }
+    }
+
+## ACCOUNTS - Get Active Device By Access Token [/accounts/_/v2/auth-qr/devices]
+
+### Get list of device(s) [GET]
+
++ Request
+    + Headers
+
+        Authentication: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjI2MTQxZDQ1ZTYyMjQzNTczMWU1YWJkYTZlOWZiNGRmIn0.eyJhenAiOiJ3SUhHekpoc2V0Iiwic2NvcGUiOiJodHRwczovL2ludGVybmFsLnN1cGVyc29jY2VyLnR2L3VzZXJzL3VzZXJzLnByb2ZpbGUucmVhZCBodHRwczovL2ludGVybmFsLnN1cGVyc29jY2VyLnR2L3N1YnNjcmlwdGlvbnMvdXNlcnMucmVhZC5nbG9iYWwgaHR0cHM6Ly9hcGkuc3VwZXJzb2NjZXIudHYvc3Vic2NyaXB0aW9ucy9zdWJzY3JpcHRpb25zLnJlYWQgaHR0cHM6Ly9hcGkuc3VwZXJzb2NjZXIudHYvb3JkZXJzL29yZGVycy5jcmVhdGUgaHR0cHM6Ly9hcGkuc3VwZXJzb2NjZXIudHYvdmlkZW9zL3ZpZGVvcy5yZWFkIGh0dHBzOi8vYXBpLnN1cGVyc29jY2VyLnR2L29yZGVycy9vcmRlcnMucmVhZCBwYXltZW50bWV0aG9kczpyZWFkLmludGVybmFsIHBheW1lbnRzOnBheW1lbnQuZG9wYXkgdXNlcmRhdGE6cHJlZmVyZW5jZS5yZWFkIHVzZXJkYXRhOnByZWZlcmVuY2UuaW5zZXJ0IiwicnFsIjoiaW5maW5pdGUiLCJpYXQiOjE1NzAwNzQ5NzEsImV4cCI6MTU3MDMzNDE3MSwiYXVkIjoiYXBpLm1vbGEudHYiLCJpc3MiOiJhY2NvdW50cy5tb2xhLnR2Iiwic3ViIjoiWk1iMWhKejFBbnl3TGFOVDN2N01wMmRKSVA0TFo2IiwianRpIjoidWp3WmpJOUVhTmJIOUFNYWxCZU5vdUlxRXZPSHQxcjhhVFIxM3oyZCJ9.ZWremg1v09iSGoHZT7JBtNC0oJ-wxGtDg2tGrlplegAMCaaUgDTG49r4zs86RbE-e39s0h7XP6NcC8ZgAl6UR1yY6yq49LvZKkO5f2JNyQUhcxtSpbVnaW8mruOtqFXPbMWCiNMCC-0zApRDhH-_glO5euk2CeDrdZCG5TfHbxe_CIgohlX1MhzDjwv8viVLqQ7GOQ24kATnmF9uKfOCQgCgyG39Mk-TbuRTf1bWSJhSlti1FhDf6RQz8dlLzKv0icjrHfoKn1e6C8KOKcuYNDA5_kloH566szR4Wm6gaC8RZu2COydgAhqgsnGKlDFhXgLZTDhjX-F35leu5MyHyg
+
++ Response 200 (application/json)
+
+    {
+        "data": {
+            "devices": []
+        }
+    }
+
 ## ACCOUNTS - Logout [/accounts/_/v2/logout]
 
 ### Logout [POST]
 
 + Request
     + Headers
-
         Authentication: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjI2MTQxZDQ1ZTYyMjQzNTczMWU1YWJkYTZlOWZiNGRmIn0.eyJhenAiOiJ3SUhHekpoc2V0Iiwic2NvcGUiOiJodHRwczovL2ludGVybmFsLnN1cGVyc29jY2VyLnR2L3VzZXJzL3VzZXJzLnByb2ZpbGUucmVhZCBodHRwczovL2ludGVybmFsLnN1cGVyc29jY2VyLnR2L3N1YnNjcmlwdGlvbnMvdXNlcnMucmVhZC5nbG9iYWwgaHR0cHM6Ly9hcGkuc3VwZXJzb2NjZXIudHYvc3Vic2NyaXB0aW9ucy9zdWJzY3JpcHRpb25zLnJlYWQgaHR0cHM6Ly9hcGkuc3VwZXJzb2NjZXIudHYvb3JkZXJzL29yZGVycy5jcmVhdGUgaHR0cHM6Ly9hcGkuc3VwZXJzb2NjZXIudHYvdmlkZW9zL3ZpZGVvcy5yZWFkIGh0dHBzOi8vYXBpLnN1cGVyc29jY2VyLnR2L29yZGVycy9vcmRlcnMucmVhZCBwYXltZW50bWV0aG9kczpyZWFkLmludGVybmFsIHBheW1lbnRzOnBheW1lbnQuZG9wYXkgdXNlcmRhdGE6cHJlZmVyZW5jZS5yZWFkIHVzZXJkYXRhOnByZWZlcmVuY2UuaW5zZXJ0IiwicnFsIjoiaW5maW5pdGUiLCJpYXQiOjE1NzAwNzQ5NzEsImV4cCI6MTU3MDMzNDE3MSwiYXVkIjoiYXBpLm1vbGEudHYiLCJpc3MiOiJhY2NvdW50cy5tb2xhLnR2Iiwic3ViIjoiWk1iMWhKejFBbnl3TGFOVDN2N01wMmRKSVA0TFo2IiwianRpIjoidWp3WmpJOUVhTmJIOUFNYWxCZU5vdUlxRXZPSHQxcjhhVFIxM3oyZCJ9.ZWremg1v09iSGoHZT7JBtNC0oJ-wxGtDg2tGrlplegAMCaaUgDTG49r4zs86RbE-e39s0h7XP6NcC8ZgAl6UR1yY6yq49LvZKkO5f2JNyQUhcxtSpbVnaW8mruOtqFXPbMWCiNMCC-0zApRDhH-_glO5euk2CeDrdZCG5TfHbxe_CIgohlX1MhzDjwv8viVLqQ7GOQ24kATnmF9uKfOCQgCgyG39Mk-TbuRTf1bWSJhSlti1FhDf6RQz8dlLzKv0icjrHfoKn1e6C8KOKcuYNDA5_kloH566szR4Wm6gaC8RZu2COydgAhqgsnGKlDFhXgLZTDhjX-F35leu5MyHyg
         Cookie: __sessId=aaaaa
+
++ Request
+    + data
+        {
+                "deviceID": "7pyAltMSlkVgYUFP8KgEPulIF6oa0FHC1qTv"
+        }
 
 + Response 200 (application/json)
 
         {
-            "data": "OK"
+            "data": "Ok"
         }
